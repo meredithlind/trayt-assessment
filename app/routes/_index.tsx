@@ -11,9 +11,12 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.8' }}>
-      <h1>Welcome to the Bank of Trayt</h1>
+      <p className="text-3xl text-blue-700">Welcome to the Bank of Trayt</p>
 
-      <h3>Initiate a new Direct Deposit to earn 5% for 36 months!</h3>
+      <p className="text-xl text-blue-700">
+        Initiate a new Direct Deposit to earn 5% for 36 months!
+      </p>
+
       <Link to="/new-deposit">Learn More</Link>
     </div>
   )
