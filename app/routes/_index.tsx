@@ -10,7 +10,7 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.8' }}>
+    <div className="flex-col justify-center">
       <p className="text-3xl text-blue-700">Welcome to the Bank of Trayt</p>
 
       <p className="text-xl text-blue-700">

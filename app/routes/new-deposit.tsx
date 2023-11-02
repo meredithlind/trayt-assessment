@@ -46,7 +46,9 @@ export default function NewDeposit() {
 
   return (
     <div>
-      <p className="text-xl text-blue-800">New Direct Deposit Enrollment</p>
+      <p className="text-xl text-blue-800 mb-6">
+        New Direct Deposit Enrollment
+      </p>
 
       <div className="w-full max-w-xs container">
         <Form

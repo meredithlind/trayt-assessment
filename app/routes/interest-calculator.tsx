@@ -1,12 +1,20 @@
+import { useNavigation } from '@remix-run/react'
+
 export default function CompoundInterestCalculator() {
   const interest = 0
+  const navigation = useNavigation()
+
+  console.log(navigation)
 
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.8' }}>
-      <h1>Compound Interest Calculator</h1>
+    <div>
+      <p className="text-xl text-blue-800 mb-6">Compound Interest Calculator</p>
 
-      <button>Calculate</button>
-      <>${interest}</>
+      <button className="bg-blue-800 text-white rounded px-6 py-1">
+        Calculate
+      </button>
+
+      <p>${interest}</p>
     </div>
   )
 }

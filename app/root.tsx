@@ -8,6 +8,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react'
+import { AppHeader } from './components/app-header'
+import { AppSidebar } from './components/app-sidebar'
 
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }]
 
@@ -21,8 +23,14 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <div className="container mx-auto">
-          <Outlet />
+        <AppHeader />
+        <div className="container">
+          <div className="flex h-screen">
+            <AppSidebar />
+            <main className="flex-1 p-5 mx-auto">
+              <Outlet />
+            </main>
+          </div>
         </div>
         <ScrollRestoration />
         <Scripts />
