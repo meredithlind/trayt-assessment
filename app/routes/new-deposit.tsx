@@ -5,10 +5,14 @@ import { DepositEnrollmentSchema } from '~/core/form-schema'
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   try {
-    const formData = DepositEnrollmentSchema.parse(await request.formData())
-
-    // return { formData, error: null }
-    return redirect(`/interest-calculator`)
+    const { amount, frequency } = DepositEnrollmentSchema.parse(
+      await request.formData()
+    )
+    const params = new URLSearchParams({
+      amount,
+      frequency,
+    })
+    return redirect(`/interest-calculator?${params}`)
   } catch (error) {
     return { error: error as z.ZodError }
   }
