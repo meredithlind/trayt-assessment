@@ -10,14 +10,23 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <div className="flex-col justify-center">
-      <p className="text-3xl text-blue-700">Welcome to the Bank of Trayt</p>
+    <>
+      <p className="text-3xl text-blue-700 mb-16">
+        Welcome to the Bank of Trayt
+      </p>
 
-      <p className="text-xl text-blue-700">
+      <p className="text-xl text-blue-700 mb-16">
         Initiate a new Direct Deposit to earn 5% for 36 months!
       </p>
 
-      <Link to="/new-deposit">Learn More</Link>
-    </div>
+      <div>
+        <Link
+          to="/new-deposit"
+          className="bg-blue-800 text-white rounded px-6 py-2"
+        >
+          Learn More
+        </Link>
+      </div>
+    </>
   )
 }

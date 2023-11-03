@@ -27,7 +27,7 @@ export default function App() {
         <div className="container">
           <div className="flex h-screen">
             <AppSidebar />
-            <main className="flex-1 p-5 mx-auto">
+            <main className="flex p-5 mx-auto flex-col items-center">
               <Outlet />
             </main>
           </div>
