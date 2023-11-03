@@ -33,7 +33,7 @@ export default function NewDeposit() {
 
   return (
     <>
-      <p className="text-3xl text-blue-800 mb-6">
+      <p className="text-3xl text-blue-900 mb-6">
         New Direct Deposit Enrollment
       </p>
 
@@ -88,7 +88,7 @@ export default function NewDeposit() {
           </div>
 
           <button
-            className="bg-blue-800 text-white rounded px-6 py-1"
+            className="bg-blue-900 text-white rounded px-6 py-1"
             type="submit"
           >
             Submit

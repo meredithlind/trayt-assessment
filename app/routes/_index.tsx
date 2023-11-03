@@ -11,18 +11,18 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <>
-      <p className="text-3xl text-blue-700 mb-16">
+      <p className="text-3xl text-blue-900 mb-16">
         Welcome to the Bank of Trayt
       </p>
 
-      <p className="text-xl text-blue-700 mb-16">
+      <p className="text-xl text-blue-900 mb-16">
         Initiate a new Direct Deposit to earn 5% for 36 months!
       </p>
 
       <div>
         <Link
           to="/new-deposit"
-          className="bg-blue-800 text-white rounded px-6 py-2"
+          className="bg-blue-900 text-white rounded px-6 py-2"
         >
           Learn More
         </Link>
