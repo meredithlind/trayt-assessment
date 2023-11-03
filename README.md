@@ -1,6 +1,4 @@
-# Welcome to Remix!
-
-- [Remix Docs](https://remix.run/docs)
+# Welcome to Bank of Trayt App!
 
 ## Development
 
@@ -11,6 +9,14 @@ npm run dev
 ```
 
 This starts your app in development mode, rebuilding assets on file changes.
+
+## Tests
+
+To run the tests:
+
+```sh
+npm test
+```
 
 ## Deployment
 
