@@ -1,7 +1,7 @@
 import type { LoaderFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { calculateTotalCompoundInterest } from '~/core/calculate-interest'
 import type { FormData } from '~/core/form-schema'
 
@@ -10,6 +10,9 @@ export const loader: LoaderFunction = async ({ request }) => {
   const amount = searchParams.get('amount')
   const frequency = searchParams.get('frequency')
 
+  // Future consideration. By using parseInt, we lose any cents that the
+  // user input. Consider creating a helper or two to standardize the input
+  // and storage of currency.
   return json({ frequency, amount: amount ? parseInt(amount) : 0 })
 }
 
@@ -23,7 +26,7 @@ export default function CompoundInterestCalculator() {
   const [earnedInterest, setInterest] = useState<number>()
   const [totalAmount, setTotalAmount] = useState<number>()
 
-  const onCalculate = () => {
+  const onCalculate = useCallback(() => {
     if (months) {
       const { totalAmount, earnedInterest } = calculateTotalCompoundInterest({
         deposit,
@@ -34,7 +37,7 @@ export default function CompoundInterestCalculator() {
       setInterest(earnedInterest)
       setTotalAmount(totalAmount)
     }
-  }
+  }, [deposit, frequency, months])
 
   return (
     <>
@@ -46,7 +49,7 @@ export default function CompoundInterestCalculator() {
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="months"
         >
-          Enter number of months you plan to contribute:
+          Enter the number of months you plan to contribute:
         </label>
         <input
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
