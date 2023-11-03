@@ -1,6 +1,6 @@
 import type { FormData } from '~/core/form-schema'
 
-export function calculateInterestAndPrincipal({
+export const calculateTotalCompoundInterest = ({
   deposit,
   frequency,
   months,
@@ -8,53 +8,28 @@ export function calculateInterestAndPrincipal({
   deposit: number
   frequency: FormData['frequency']
   months: number
-}): { earnedInterest: number; totalContributions: number } {
-  const monthlyInterestRate = 0.05
-  const reducedInterestRate = 0.02
+}) => {
+  let totalAmount = 0
+  let monthlyInterestRate = 0.05
 
-  let totalInterest = 0
   const totalMonthlyDeposit =
     frequency === 'Twice per Month' ? deposit * 2 : deposit
 
-  if (months > 36) {
-    const totalAmountFor36Months = calculateCompoundInterest({
-      totalMonthlyDeposit,
-      interestRate: monthlyInterestRate,
-      months: 36,
-    })
-
-    const totalAmountAfter36Months = calculateCompoundInterest({
-      totalMonthlyDeposit,
-      interestRate: reducedInterestRate,
-      months: months - 36,
-    })
-
-    totalInterest = totalAmountFor36Months + totalAmountAfter36Months
-  } else {
-    totalInterest = calculateCompoundInterest({
-      totalMonthlyDeposit,
-      interestRate: monthlyInterestRate,
-      months,
-    })
+  for (let i = 1; i <= months; i++) {
+    if (i > 36) {
+      monthlyInterestRate = 0.02
+    }
+    totalAmount += totalMonthlyDeposit // Add monthly contribution
+    totalAmount *= 1 + monthlyInterestRate // Apply monthly interest
   }
-
+  const totalContributions = totalMonthlyDeposit * months
   return {
-    earnedInterest: Math.round(totalInterest),
-    totalContributions: Math.round(totalMonthlyDeposit * months),
+    totalAmount: roundToTwoDecimalPlaces(totalAmount),
+    earnedInterest: roundToTwoDecimalPlaces(totalAmount - totalContributions),
+    totalContributions,
   }
 }
 
-const calculateCompoundInterest = ({
-  totalMonthlyDeposit,
-  months,
-  interestRate,
-}: {
-  totalMonthlyDeposit: number
-  months: number
-  interestRate: number
-}) => {
-  return (
-    totalMonthlyDeposit *
-    ((Math.pow(1 + interestRate, months) - 1) / interestRate)
-  )
+const roundToTwoDecimalPlaces = (num: number): number => {
+  return Math.round(num * 100) / 100
 }

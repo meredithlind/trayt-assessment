@@ -2,8 +2,7 @@ import type { LoaderFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { useState } from 'react'
-import { calculateInterestAndPrincipal } from '~/core/calculate-interest'
-
+import { calculateTotalCompoundInterest } from '~/core/calculate-interest'
 import type { FormData } from '~/core/form-schema'
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -22,19 +21,18 @@ export default function CompoundInterestCalculator() {
 
   const [months, setMonths] = useState<number>()
   const [earnedInterest, setInterest] = useState<number>()
-  const [totalContributions, setContributions] = useState<number>()
+  const [totalAmount, setTotalAmount] = useState<number>()
 
   const onCalculate = () => {
     if (months) {
-      const { earnedInterest, totalContributions } =
-        calculateInterestAndPrincipal({
-          deposit,
-          frequency,
-          months,
-        })
+      const { totalAmount, earnedInterest } = calculateTotalCompoundInterest({
+        deposit,
+        frequency,
+        months,
+      })
 
       setInterest(earnedInterest)
-      setContributions(totalContributions)
+      setTotalAmount(totalAmount)
     }
   }
 
@@ -56,7 +54,7 @@ export default function CompoundInterestCalculator() {
           value={months}
           onChange={(event) => {
             setInterest(undefined)
-            setContributions(undefined)
+            setTotalAmount(undefined)
             setMonths(parseInt(event.target.value))
           }}
         />
@@ -70,14 +68,15 @@ export default function CompoundInterestCalculator() {
         Calculate
       </button>
 
-      {earnedInterest && totalContributions && (
+      {earnedInterest && totalAmount && months && (
         <>
           <p className="text-2xl mb-6">
-            Deposit of ${deposit}, {frequency} for {months} month(s):
+            Deposit of ${deposit}, {frequency} for {months} month
+            {months > 1 && 's'}:
           </p>
-          <p className="text-xl mb-6">Total interest: ${earnedInterest}</p>
-          <p className="text-xl">
-            Total in the bank: ${earnedInterest + totalContributions}
+          <p className="text-xl mb-6">Total: ${totalAmount.toFixed(2)}</p>
+          <p className="text-xl mb-6">
+            Earned Interest: ${earnedInterest.toFixed(2)}
           </p>
         </>
       )}
